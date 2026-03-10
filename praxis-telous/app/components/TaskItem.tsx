@@ -23,16 +23,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { Task, TaskStatus, TaskType } from '../models/Task';
 import { iconMap } from '../constants';
-
-const statusColors: Record<TaskStatus, 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'> = {
-  'Idea': 'default',
-  'To Research': 'info',
-  'Ready to Start': 'secondary',
-  'In Progress': 'warning',
-  'Blocked': 'error',
-  'Done': 'success',
-  'Archived': 'default',
-};
+import { statusColors } from '../constants/status';
 
 interface TaskItemProps {
   task: Task;

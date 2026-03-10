@@ -20,16 +20,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { Task, TaskStatus, TaskType } from '../models/Task';
 import TaskItem from './TaskItem';
 import { iconMap } from '../constants';
-
-const statusColors: Record<TaskStatus, 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'> = {
-  'Idea': 'default',
-  'To Research': 'info',
-  'Ready to Start': 'secondary',
-  'In Progress': 'warning',
-  'Blocked': 'error',
-  'Done': 'success',
-  'Archived': 'default',
-};
+import { statusColors } from '../constants/status';
 
 interface ProjectItemProps {
   project: Task;
