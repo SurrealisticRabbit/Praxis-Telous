@@ -10,10 +10,10 @@ const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
   // Enable static export
   output: 'export',
+  trailingSlash: true,
 
   // Configure paths for GitHub Pages
   basePath: isProd ? `/${repoName}` : '',
-  assetPrefix: isProd ? `/${repoName}/` : '',
 
   // Image optimization is not compatible with static export
   images: {
@@ -22,6 +22,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-// This file is in the wrong directory and is not being used by Next.js.
-// The active configuration is located at: praxis-telous/next.config.mjs
-// You can safely delete this file.
