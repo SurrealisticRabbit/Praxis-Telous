@@ -22,3 +22,6 @@ const nextConfig = {
 };
 
 export default nextConfig;
+// This file is in the wrong directory and is not being used by Next.js.
+// The active configuration is located at: praxis-telous/next.config.mjs
+// You can safely delete this file.
