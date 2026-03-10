@@ -28,26 +28,24 @@ interface ProjectItemProps {
   onEdit: (task: Task, parentId: number | null, type: TaskType) => void;
   onAddSubtask: (taskToEdit: undefined, parentId: number, type: TaskType) => void;
   onDelete: (taskId: number) => void;
-  hoveredId: number | null;
-  setHoveredId: (id: number | null) => void;
 }
 
-export default function ProjectItem({ project, allTasks, onEdit, onAddSubtask, onDelete, hoveredId, setHoveredId }: ProjectItemProps) {
+export default function ProjectItem({ project, allTasks, onEdit, onAddSubtask, onDelete }: ProjectItemProps) {
   const IconComponent = iconMap[project.icon] || FolderIcon;
   
   const hasSubtasks = project.subtasks && project.subtasks.length > 0;
-  const isHovered = project.id === hoveredId;
 
   return (
-    <Box onMouseEnter={() => setHoveredId(project.id)} >
+    <Box>
       <Card 
         variant="outlined" 
         sx={{ 
           minWidth: 275, 
-          borderColor: isHovered ? 'primary.main' : 'rgba(255,255,255,0.12)',
+          borderColor: 'rgba(255,255,255,0.12)',
           bgcolor: 'rgba(20, 25, 30, 0.5)', // Darker, more grounded color
           backdropFilter: 'blur(8px)',
           transition: 'border-color 0.2s ease-in-out',
+          '&:hover': { borderColor: 'primary.main' },
         }}
       >
         <CardHeader
@@ -81,8 +79,6 @@ export default function ProjectItem({ project, allTasks, onEdit, onAddSubtask, o
                   onAddSubtask={onAddSubtask}
                   onDelete={onDelete}
                   level={1} // Start at level 1 for project subtasks
-                  hoveredId={hoveredId}
-                  setHoveredId={setHoveredId}
                 />
               ))}
             </Stack>
