@@ -3,7 +3,7 @@
 // IMPORTANT: This value should be the name of your GitHub repository.
 // For example, if your repository URL is https://github.com/your-name/praxis-telous,
 // then the value should be 'praxis-telous'.
-const repoName = 'praxis-telous';
+const repoName = 'Praxis-Telous';
 
 const isProd = process.env.NODE_ENV === 'production';
 
