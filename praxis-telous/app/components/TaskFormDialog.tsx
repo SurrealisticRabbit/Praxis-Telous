@@ -14,9 +14,9 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
 import { Task, TaskStatus, TaskType } from '../models/Task';
 import { colors, iconMap } from '../constants';
+import { statusList } from '../constants/status';
 
 interface TaskFormDialogProps {
   open: boolean;
@@ -104,13 +104,9 @@ export default function TaskFormDialog({ open, onClose, onSave, initialTask, par
             label="Status"
             onChange={(e) => setFormData({ ...formData, status: e.target.value as TaskStatus })}
           >
-            <MenuItem value="Idea">Idea</MenuItem>
-            <MenuItem value="To Research">To Research</MenuItem>
-            <MenuItem value="Ready to Start">Ready to Start</MenuItem>
-            <MenuItem value="In Progress">In Progress</MenuItem>
-            <MenuItem value="Blocked">Blocked</MenuItem>
-            <MenuItem value="Done">Done</MenuItem>
-            <MenuItem value="Archived">Archived</MenuItem>
+            {statusList.map((status) => (
+              <MenuItem key={status} value={status}>{status}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 

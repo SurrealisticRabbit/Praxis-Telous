@@ -77,7 +77,6 @@ interface DialogState {
 export default function Home() {
   const { tasks, setTasks, isLoading } = useTaskPersistence();
   const [dialogState, setDialogState] = useState<DialogState>({ open: false });
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const flatTasks = useMemo(() => flattenTasks(tasks), [tasks]);
 
@@ -131,7 +130,6 @@ export default function Home() {
   return (
     <Box sx={{ 
       flexGrow: 1, 
-      minHeight: '100vh',
       background: 'linear-gradient(to bottom right, #0f1214, #1a1f24)',
       display: 'flex',
       flexDirection: 'column'
@@ -154,10 +152,7 @@ export default function Home() {
       </AppBar>
 
       <Container maxWidth="md" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <Box 
-          sx={{ my: 6, flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }} 
-          onMouseLeave={() => setHoveredId(null)}
-        >
+        <Box sx={{ my: 6, flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {tasks.length === 0 ? (
             <Fade in={true} timeout={800}>
               <Box sx={{ 
@@ -191,8 +186,6 @@ export default function Home() {
                   onEdit={handleOpenDialog}
                   onAddSubtask={handleOpenDialog}
                   onDelete={handleDeleteTask}
-                  hoveredId={hoveredId}
-                  setHoveredId={setHoveredId}
                 />
               ))}
             </Stack>

@@ -23,16 +23,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { Task, TaskStatus, TaskType } from '../models/Task';
 import { iconMap } from '../constants';
-
-const statusColors: Record<TaskStatus, 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'> = {
-  'Idea': 'default',
-  'To Research': 'info',
-  'Ready to Start': 'secondary',
-  'In Progress': 'warning',
-  'Blocked': 'error',
-  'Done': 'success',
-  'Archived': 'default',
-};
+import { statusColors } from '../constants/status';
 
 interface TaskItemProps {
   task: Task;
@@ -41,11 +32,9 @@ interface TaskItemProps {
   onAddSubtask: (taskToEdit: undefined, parentId: number, type: TaskType) => void;
   onDelete: (taskId: number) => void;
   level?: number;
-  hoveredId: number | null;
-  setHoveredId: (id: number | null) => void;
 }
 
-export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelete, level = 0, hoveredId, setHoveredId }: TaskItemProps) {
+export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelete, level = 0 }: TaskItemProps) {
   const [expanded, setExpanded] = useState(false);
   const [actionsVisible, setActionsVisible] = useState(false);
 
@@ -57,7 +46,6 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
   const IconComponent = getIcon();
   
   const hasSubtasks = task.subtasks && task.subtasks.length > 0;
-  const isHovered = task.id === hoveredId;
 
   const handleCardClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop it from bubbling to parent TaskItems
@@ -70,25 +58,20 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop it from toggling actions
   };
-  
-  const handleMouseEnter = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setHoveredId(task.id);
-  }
 
   return (
     <Box 
       onClick={handleCardClick} 
-      onMouseEnter={handleMouseEnter}
     >
       <Card 
         variant="outlined" 
         sx={{ 
           minWidth: 275, 
           bgcolor: 'rgba(255, 255, 255, 0.03)',
-          borderColor: isHovered ? 'primary.light' : 'rgba(255, 255, 255, 0.08)',
+          borderColor: 'rgba(255, 255, 255, 0.08)',
           transition: 'border-color 0.2s ease-in-out',
           cursor: 'pointer',
+          '&:hover': { borderColor: 'primary.light' },
         }}
       >
         <CardHeader
@@ -140,8 +123,6 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
                     onAddSubtask={onAddSubtask}
                     onDelete={onDelete}
                     level={level + 1}
-                    hoveredId={hoveredId}
-                    setHoveredId={setHoveredId}
                   />
                 ))}
               </Stack>
