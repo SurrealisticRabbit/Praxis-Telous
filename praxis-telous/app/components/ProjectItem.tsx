@@ -31,21 +31,30 @@ interface ProjectItemProps {
 }
 
 export default function ProjectItem({ project, allTasks, onEdit, onAddSubtask, onDelete }: ProjectItemProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const IconComponent = iconMap[project.icon] || FolderIcon;
   
   const hasSubtasks = project.subtasks && project.subtasks.length > 0;
 
   return (
-    <Box>
+    <Box
+      onMouseOver={(e) => {
+        e.stopPropagation();
+        setIsHovered(true);
+      }}
+      onMouseOut={(e) => {
+        e.stopPropagation();
+        setIsHovered(false);
+      }}
+    >
       <Card 
         variant="outlined" 
         sx={{ 
           minWidth: 275, 
-          borderColor: 'rgba(255,255,255,0.12)',
+          borderColor: isHovered ? 'primary.main' : 'rgba(255,255,255,0.12)',
           bgcolor: 'rgba(20, 25, 30, 0.5)', // Darker, more grounded color
           backdropFilter: 'blur(8px)',
           transition: 'border-color 0.2s ease-in-out',
-          '&:hover': { borderColor: 'primary.main' },
         }}
       >
         <CardHeader
@@ -68,7 +77,11 @@ export default function ProjectItem({ project, allTasks, onEdit, onAddSubtask, o
         />
 
         {hasSubtasks && (
-          <Box sx={{ px: 2, py: 2 }}>
+          <Box 
+            sx={{ px: 2, py: 2 }}
+            onMouseOver={(e) => e.stopPropagation()}
+            onMouseOut={(e) => e.stopPropagation()}
+          >
             <Stack spacing={1}>
               {project.subtasks.map((sub) => (
                 <TaskItem
