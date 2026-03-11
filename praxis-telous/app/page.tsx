@@ -128,6 +128,7 @@ export default function Home() {
   }
 
   return (
+    <>
     <Box sx={{ 
       flexGrow: 1, 
       background: 'linear-gradient(to bottom right, #0f1214, #1a1f24)',
@@ -219,5 +220,6 @@ export default function Home() {
         </Box>
       </Container>
     </Box>
+    </>
   );
 }

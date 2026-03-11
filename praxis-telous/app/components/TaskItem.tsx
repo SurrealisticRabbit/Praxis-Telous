@@ -37,6 +37,7 @@ interface TaskItemProps {
 export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelete, level = 0 }: TaskItemProps) {
   const [expanded, setExpanded] = useState(false);
   const [actionsVisible, setActionsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Use subdirectory arrow for subtasks, otherwise use the task's chosen icon
   const getIcon = () => {
@@ -62,16 +63,23 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
   return (
     <Box 
       onClick={handleCardClick} 
+      onMouseOver={(e) => {
+        e.stopPropagation();
+        setIsHovered(true);
+      }}
+      onMouseOut={(e) => {
+        e.stopPropagation();
+        setIsHovered(false);
+      }}
     >
       <Card 
         variant="outlined" 
         sx={{ 
           minWidth: 275, 
           bgcolor: 'rgba(255, 255, 255, 0.03)',
-          borderColor: 'rgba(255, 255, 255, 0.08)',
+          borderColor: isHovered ? 'primary.light' : 'rgba(255, 255, 255, 0.08)',
           transition: 'border-color 0.2s ease-in-out',
           cursor: 'pointer',
-          '&:hover': { borderColor: 'primary.light' },
         }}
       >
         <CardHeader
@@ -112,7 +120,12 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
         
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           {hasSubtasks && (
-            <Box sx={{ pt: 2, px: 2 }}>
+            <Box 
+              sx={{ pt: 2, px: 2, pb: 2 }}
+              // Prevent parent hover when hovering in the subtask area
+              onMouseOver={(e) => e.stopPropagation()}
+              onMouseOut={(e) => e.stopPropagation()}
+            >
               <Stack spacing={1.5}>
                 {task.subtasks.map((sub) => (
                   <TaskItem
