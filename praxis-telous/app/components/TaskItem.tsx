@@ -121,7 +121,7 @@ export default function TaskItem({ task, allTasks, onEdit, onAddSubtask, onDelet
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           {hasSubtasks && (
             <Box 
-              sx={{ pt: 2, px: 2 }}
+              sx={{ pt: 2, px: 2, pb: 2 }}
               // Prevent parent hover when hovering in the subtask area
               onMouseOver={(e) => e.stopPropagation()}
               onMouseOut={(e) => e.stopPropagation()}
